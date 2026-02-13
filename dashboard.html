@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Sistema de Gestión de Inventario</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body class="bg-gray-50">
+    <div class="flex h-screen">
+        <!-- Sidebar -->
+        <aside class="w-64 bg-indigo-900 text-white shadow-lg">
+            <div class="p-6 border-b border-indigo-800">
+                <h2 class="text-2xl font-bold">Inventario</h2>
+                <p class="text-indigo-300 text-sm">Sistema de Gestión</p>
+            </div>
+
+            <nav class="p-4 space-y-2">
+                <!-- Menú común -->
+                <a href="#" onclick="showSection('inventory')" class="menu-item block px-4 py-2 rounded-lg hover:bg-indigo-800 transition">
+                    📦 Inventario
+                </a>
+                <a href="#" onclick="showSection('movements')" class="menu-item block px-4 py-2 rounded-lg hover:bg-indigo-800 transition">
+                    📊 Movimientos
+                </a>
+
+                <!-- Menú solo para Administrador -->
+                <div id="adminMenu">
+                    <a href="#" onclick="showSection('products')" class="menu-item block px-4 py-2 rounded-lg hover:bg-indigo-800 transition">
+                        ➕ Gestión de Productos
+                    </a>
+                    <a href="#" onclick="showSection('categories')" class="menu-item block px-4 py-2 rounded-lg hover:bg-indigo-800 transition">
+                        🏷️ Categorías
+                    </a>
+                    <a href="#" onclick="showSection('statistics')" class="menu-item block px-4 py-2 rounded-lg hover:bg-indigo-800 transition">
+                        📈 Estadísticas
+                    </a>
+                    <a href="#" onclick="showSection('users')" class="menu-item block px-4 py-2 rounded-lg hover:bg-indigo-800 transition">
+                        👥 Usuarios
+                    </a>
+                </div>
+
+                <!-- Menú solo para Empleado -->
+                <div id="employeeMenu">
+                    <a href="#" onclick="showSection('entry')" class="menu-item block px-4 py-2 rounded-lg hover:bg-indigo-800 transition">
+                        ⬆️ Registrar Entrada
+                    </a>
+                    <a href="#" onclick="showSection('exit')" class="menu-item block px-4 py-2 rounded-lg hover:bg-indigo-800 transition">
+                        ⬇️ Registrar Salida
+                    </a>
+                </div>
+
+                <hr class="border-indigo-800 my-4">
+                <button onclick="logout()" class="w-full bg-red-600 hover:bg-red-700 px-4 py-2 rounded-lg transition font-semibold">
+                    🚪 Cerrar Sesión
+                </button>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 overflow-auto">
+            <!-- Top Bar -->
+            <header class="bg-white shadow-sm p-6 flex justify-between items-center">
+                <div>
+                    <h1 id="pageTitle" class="text-2xl font-bold text-gray-800">Bienvenido</h1>
+                    <p id="userName" class="text-gray-600"></p>
+                </div>
+                <div class="text-right">
+                    <p class="text-gray-600 text-sm" id="currentDateTime"></p>
+                </div>
+            </header>
+
+            <!-- Content -->
+            <section class="p-6">
+                
+                <!-- Inventario -->
+                <div id="inventory" class="section hidden">
+                    <div class="bg-white rounded-lg shadow p-6">
+                        <h2 class="text-xl font-bold text-gray-800 mb-4">📦 Inventario Actual</h2>
+                        <div class="mb-4">
+                            <input 
+                                type="text" 
+                                id="searchInventory" 
+                                placeholder="Buscar producto..."
+                                class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 w-full md:w-64"
+                            >
+                        </div>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-sm">
+                                <thead class="bg-gray-100 text-gray-700">
+                                    <tr>
+                                        <th class="px-4 py-2 text-left">Producto</th>
+                                        <th class="px-4 py-2 text-left">Categoría</th>
+                                        <th class="px-4 py-2 text-center">Cantidad</th>
+                                        <th class="px-4 py-2 text-center">Precio</th>
+                                        <th class="px-4 py-2 text-center">Estado</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="inventoryTable" class="divide-y">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Movimientos -->
+                <div id="movements" class="section hidden">
+                    <div class="bg-white rounded-lg shadow p-6">
+                        <h2 class="text-xl font-bold text-gray-800 mb-4">📊 Historial de Movimientos</h2>
+                        <div class="mb-4 flex flex-col md:flex-row gap-4">
+                            <select id="filterType" class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                                <option value="">Filtrar por tipo...</option>
+                                <option value="entrada">Entrada</option>
+                                <option value="salida">Salida</option>
+                            </select>
+                            <input 
+                                type="date" 
+                                id="filterDate"
+                                class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                            >
+                            <button onclick="clearFilters()" class="px-4 py-2 bg-gray-400 text-white rounded-lg hover:bg-gray-500">Limpiar</button>
+                        </div>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-sm">
+                                <thead class="bg-gray-100 text-gray-700">
+                                    <tr>
+                                        <th class="px-4 py-2 text-left">Fecha</th>
+                                        <th class="px-4 py-2 text-left">Producto</th>
+                                        <th class="px-4 py-2 text-center">Tipo</th>
+                                        <th class="px-4 py-2 text-center">Cantidad</th>
+                                        <th class="px-4 py-2 text-left">Usuario</th>
+                                        <th class="px-4 py-2 text-left">Observaciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="movementsTable" class="divide-y">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Gestión de Productos (Admin) -->
+                <div id="products" class="section hidden">
+                    <div class="bg-white rounded-lg shadow p-6">
+                        <h2 class="text-xl font-bold text-gray-800 mb-4">➕ Gestión de Productos</h2>
+                        <div class="flex gap-2 mb-4 flex-wrap">
+                            <button onclick="openProductModal()" class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700">
+                                ➕ Agregar Producto
+                            </button>
+                            <button onclick="consolidateAllDuplicates()" class="px-4 py-2 bg-yellow-600 text-white rounded-lg hover:bg-yellow-700">
+                                🔄 Consolidar Duplicados
+                            </button>
+                        </div>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-sm">
+                                <thead class="bg-gray-100 text-gray-700">
+                                    <tr>
+                                        <th class="px-4 py-2 text-left">Producto</th>
+                                        <th class="px-4 py-2 text-left">Categoría</th>
+                                        <th class="px-4 py-2 text-center">Cantidad</th>
+                                        <th class="px-4 py-2 text-center">Mín/Máx</th>
+                                        <th class="px-4 py-2 text-center">Precio</th>
+                                        <th class="px-4 py-2 text-center">Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="productsTable" class="divide-y">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Categorías (Admin) -->
+                <div id="categories" class="section hidden">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="md:col-span-2 bg-white rounded-lg shadow p-6">
+                            <h2 class="text-xl font-bold text-gray-800 mb-4">🏷️ Categorías</h2>
+                            <div class="overflow-x-auto">
+                                <table class="w-full text-sm">
+                                    <thead class="bg-gray-100 text-gray-700">
+                                        <tr>
+                                            <th class="px-4 py-2 text-left">Nombre</th>
+                                            <th class="px-4 py-2 text-center">Productos</th>
+                                            <th class="px-4 py-2 text-center">Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="categoriesTable" class="divide-y">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="bg-white rounded-lg shadow p-6">
+                            <h2 class="text-lg font-bold text-gray-800 mb-4">Nueva Categoría</h2>
+                            <form id="categoryForm" class="space-y-3">
+                                <div>
+                                    <label class="block text-gray-700 font-semibold mb-1">Nombre</label>
+                                    <input 
+                                        type="text" 
+                                        id="categoryName"
+                                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                                        required
+                                    >
+                                </div>
+                                <button type="submit" class="w-full bg-green-600 text-white py-2 rounded-lg hover:bg-green-700">
+                                    Agregar Categoría
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Estadísticas (Admin) -->
+                <div id="statistics" class="section hidden">
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+                        <div class="bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-lg shadow p-6">
+                            <p class="text-sm opacity-90">Total Productos</p>
+                            <p class="text-3xl font-bold" id="statTotalProducts">0</p>
+                        </div>
+                        <div class="bg-gradient-to-br from-green-500 to-green-600 text-white rounded-lg shadow p-6">
+                            <p class="text-sm opacity-90">Valor Total Stock</p>
+                            <p class="text-2xl font-bold" id="statTotalValue">$0</p>
+                        </div>
+                        <div class="bg-gradient-to-br from-yellow-500 to-yellow-600 text-white rounded-lg shadow p-6">
+                            <p class="text-sm opacity-90">Bajo Stock</p>
+                            <p class="text-3xl font-bold" id="statLowStock">0</p>
+                        </div>
+                        <div class="bg-gradient-to-br from-red-500 to-red-600 text-white rounded-lg shadow p-6">
+                            <p class="text-sm opacity-90">Sin Stock</p>
+                            <p class="text-3xl font-bold" id="statOutOfStock">0</p>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <div class="bg-white rounded-lg shadow p-6">
+                            <h2 class="text-lg font-bold text-gray-800 mb-4">Productos con Bajo Stock</h2>
+                            <div id="lowStockList" class="space-y-2">
+                            </div>
+                        </div>
+                        <div class="bg-white rounded-lg shadow p-6">
+                            <h2 class="text-lg font-bold text-gray-800 mb-4">Productos Más Movidos</h2>
+                            <div id="topMovements" class="space-y-2">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Registro de Entrada (Empleado) -->
+                <div id="entry" class="section hidden">
+                    <div class="max-w-2xl mx-auto bg-white rounded-lg shadow p-6">
+                        <h2 class="text-xl font-bold text-gray-800 mb-6">⬆️ Registrar Entrada</h2>
+                        <form id="entryForm" class="space-y-4">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-gray-700 font-semibold mb-2">Producto</label>
+                                    <select id="entryProduct" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" required>
+                                        <option value="">Seleccionar producto...</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-gray-700 font-semibold mb-2">Cantidad</label>
+                                    <input 
+                                        type="number" 
+                                        id="entryQuantity"
+                                        min="1"
+                                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                                        required
+                                    >
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-gray-700 font-semibold mb-2">Observaciones</label>
+                                <textarea 
+                                    id="entryObservations"
+                                    rows="3"
+                                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                                ></textarea>
+                            </div>
+                            <button type="submit" class="w-full bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 font-semibold">
+                                Registrar Entrada
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Registro de Salida (Empleado) -->
+                <div id="exit" class="section hidden">
+                    <div class="max-w-2xl mx-auto bg-white rounded-lg shadow p-6">
+                        <h2 class="text-xl font-bold text-gray-800 mb-6">⬇️ Registrar Salida</h2>
+                        <form id="exitForm" class="space-y-4">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-gray-700 font-semibold mb-2">Producto</label>
+                                    <select id="exitProduct" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" required>
+                                        <option value="">Seleccionar producto...</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-gray-700 font-semibold mb-2">Cantidad</label>
+                                    <input 
+                                        type="number" 
+                                        id="exitQuantity"
+                                        min="1"
+                                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                                        required
+                                    >
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-gray-700 font-semibold mb-2">Tipo de Salida</label>
+                                <select id="exitType" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" required>
+                                    <option value="venta">Venta</option>
+                                    <option value="pérdida">Pérdida</option>
+                                    <option value="daño">Daño</option>
+                                    <option value="devolución">Devolución</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-gray-700 font-semibold mb-2">Observaciones</label>
+                                <textarea 
+                                    id="exitObservations"
+                                    rows="3"
+                                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                                ></textarea>
+                            </div>
+                            <button type="submit" class="w-full bg-red-600 text-white py-2 rounded-lg hover:bg-red-700 font-semibold">
+                                Registrar Salida
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Gestión de Usuarios (Admin) -->
+                <div id="users" class="section hidden">
+                    <div class="bg-white rounded-lg shadow p-6">
+                        <h2 class="text-xl font-bold text-gray-800 mb-4">👥 Usuarios</h2>
+                        <button onclick="openUserModal()" class="mb-4 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700">
+                            ➕ Agregar Usuario
+                        </button>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-sm">
+                                <thead class="bg-gray-100 text-gray-700">
+                                    <tr>
+                                        <th class="px-4 py-2 text-left">Usuario</th>
+                                        <th class="px-4 py-2 text-left">Rol</th>
+                                        <th class="px-4 py-2 text-center">Estado</th>
+                                        <th class="px-4 py-2 text-center">Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="usersTable" class="divide-y">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- Notification -->
+            <div id="notification" class="fixed bottom-4 right-4 hidden max-w-sm">
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal Producto -->
+    <div id="productModal" class="modal hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div class="bg-white rounded-lg p-6 max-w-md w-full mx-4">
+            <h2 id="productModalTitle" class="text-xl font-bold text-gray-800 mb-4">Nuevo Producto</h2>
+            <form id="productForm" class="space-y-4">
+                <input type="hidden" id="productId">
+                <div>
+                    <label class="block text-gray-700 font-semibold mb-1">Nombre</label>
+                    <input 
+                        type="text" 
+                        id="productName"
+                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                        required
+                    >
+                </div>
+                <div>
+                    <label class="block text-gray-700 font-semibold mb-1">Categoría</label>
+                    <select id="productCategory" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" required>
+                        <option value="">Seleccionar...</option>
+                    </select>
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-gray-700 font-semibold mb-1">Precio</label>
+                        <input 
+                            type="number" 
+                            id="productPrice"
+                            min="0"
+                            step="0.01"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                            required
+                        >
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 font-semibold mb-1">Cantidad</label>
+                        <input 
+                            type="number" 
+                            id="productQuantity"
+                            min="0"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                            required
+                        >
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-gray-700 font-semibold mb-1">Stock Mínimo</label>
+                        <input 
+                            type="number" 
+                            id="productMinStock"
+                            min="0"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                            required
+                        >
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 font-semibold mb-1">Stock Máximo</label>
+                        <input 
+                            type="number" 
+                            id="productMaxStock"
+                            min="0"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                            required
+                        >
+                    </div>
+                </div>
+                <div class="flex gap-3 pt-4">
+                    <button type="button" onclick="closeProductModal()" class="flex-1 bg-gray-400 text-white py-2 rounded-lg hover:bg-gray-500">
+                        Cancelar
+                    </button>
+                    <button type="submit" class="flex-1 bg-indigo-600 text-white py-2 rounded-lg hover:bg-indigo-700">
+                        Guardar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Usuario -->
+    <div id="userModal" class="modal hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div class="bg-white rounded-lg p-6 max-w-md w-full mx-4">
+            <h2 class="text-xl font-bold text-gray-800 mb-4">Nuevo Usuario</h2>
+            <form id="userForm" class="space-y-4">
+                <div>
+                    <label class="block text-gray-700 font-semibold mb-1">Usuario</label>
+                    <input 
+                        type="text" 
+                        id="userName"
+                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                        required
+                    >
+                </div>
+                <div>
+                    <label class="block text-gray-700 font-semibold mb-1">Contraseña</label>
+                    <input 
+                        type="password" 
+                        id="userPassword"
+                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                        required
+                    >
+                </div>
+                <div>
+                    <label class="block text-gray-700 font-semibold mb-1">Rol</label>
+                    <select id="userRole" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" required>
+                        <option value="admin">Administrador</option>
+                        <option value="employee">Empleado</option>
+                    </select>
+                </div>
+                <div class="flex gap-3 pt-4">
+                    <button type="button" onclick="closeUserModal()" class="flex-1 bg-gray-400 text-white py-2 rounded-lg hover:bg-gray-500">
+                        Cancelar
+                    </button>
+                    <button type="submit" class="flex-1 bg-indigo-600 text-white py-2 rounded-lg hover:bg-indigo-700">
+                        Guardar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="assets/js/app.js"></script>
+    <script src="assets/js/auth.js"></script>
+    <script src="assets/js/inventory.js"></script>
+    <script src="assets/js/history.js"></script>
+    <script src="assets/js/stats.js"></script>
+</body>
+</html>

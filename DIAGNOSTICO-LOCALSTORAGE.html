@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diagnóstico localStorage - Sistema de Inventario</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 p-4">
+    <div class="max-w-6xl mx-auto">
+        <!-- Header -->
+        <div class="bg-gradient-to-r from-blue-600 to-blue-800 text-white rounded-lg shadow-lg p-6 mb-6">
+            <h1 class="text-3xl font-bold mb-2">🔍 Diagnóstico localStorage</h1>
+            <p class="text-blue-100">Verifica qué datos están guardados en el navegador</p>
+        </div>
+
+        <!-- Status Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+            <div class="bg-white rounded-lg shadow p-4">
+                <p class="text-gray-600 text-sm">localStorage Disponible</p>
+                <p class="text-2xl font-bold" id="storageAvailable">❓</p>
+            </div>
+            <div class="bg-white rounded-lg shadow p-4">
+                <p class="text-gray-600 text-sm">Items Totales</p>
+                <p class="text-2xl font-bold" id="totalItems">0</p>
+            </div>
+            <div class="bg-white rounded-lg shadow p-4">
+                <p class="text-gray-600 text-sm">Espacio Usado</p>
+                <p class="text-2xl font-bold" id="spaceUsed">0 KB</p>
+            </div>
+            <div class="bg-white rounded-lg shadow p-4">
+                <p class="text-gray-600 text-sm">Última Actualización</p>
+                <p class="text-sm font-mono" id="lastUpdate">-</p>
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-6">
+            <h2 class="text-xl font-bold text-gray-800 mb-4">⚡ Acciones Rápidas</h2>
+            <div class="flex gap-2 flex-wrap">
+                <button onclick="refreshData()" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                    🔄 Actualizar
+                </button>
+                <button onclick="expandAll()" class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700">
+                    📂 Expandir Todo
+                </button>
+                <button onclick="collapseAll()" class="px-4 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700">
+                    📁 Contraer Todo
+                </button>
+                <button onclick="exportToJSON()" class="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700">
+                    💾 Descargar JSON
+                </button>
+            </div>
+        </div>
+
+        <!-- Data Display -->
+        <div id="dataContainer" class="space-y-4">
+            <!-- Se llena dinámicamente -->
+        </div>
+
+        <!-- Console Output -->
+        <div class="bg-white rounded-lg shadow-lg p-6 mt-6">
+            <h2 class="text-xl font-bold text-gray-800 mb-4">📋 Log de Consola</h2>
+            <div id="console" class="bg-gray-900 text-green-400 p-4 rounded-lg font-mono text-sm max-h-96 overflow-y-auto">
+                <p>Inicializando diagnóstico...</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let consoleOutput = [];
+
+        function log(message, type = 'info') {
+            const timestamp = new Date().toLocaleTimeString('es-ES');
+            const icon = type === 'success' ? '✅' : type === 'error' ? '❌' : type === 'warning' ? '⚠️' : 'ℹ️';
+            const fullMessage = `[${timestamp}] ${icon} ${message}`;
+            consoleOutput.push(fullMessage);
+            updateConsole();
+            console.log(message);
+        }
+
+        function updateConsole() {
+            const consoleDiv = document.getElementById('console');
+            consoleDiv.innerHTML = consoleOutput.map(msg => `<div>${msg}</div>`).join('');
+            consoleDiv.scrollTop = consoleDiv.scrollHeight;
+        }
+
+        function checkStorageAvailable() {
+            try {
+                const test = '__test__';
+                localStorage.setItem(test, test);
+                localStorage.removeItem(test);
+                return true;
+            } catch(e) {
+                return false;
+            }
+        }
+
+        function formatBytes(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return Math.round(bytes / Math.pow(k, i) * 100) / 100 + ' ' + sizes[i];
+        }
+
+        function refreshData() {
+            log('Actualizando diagnóstico...', 'info');
+            
+            // Verificar localStorage disponible
+            const available = checkStorageAvailable();
+            document.getElementById('storageAvailable').innerHTML = available ? '✅ Sí' : '❌ No';
+            
+            if (!available) {
+                log('❌ localStorage NO está disponible', 'error');
+                return;
+            }
+            
+            log('✅ localStorage está disponible', 'success');
+
+            // Contar items y espacio
+            let totalSize = 0;
+            const items = [];
+            
+            for (let key of Object.keys(localStorage)) {
+                const value = localStorage.getItem(key);
+                const size = (key.length + value.length) * 2; // Aproximado en bytes
+                totalSize += size;
+                items.push({ key, value, size });
+            }
+
+            document.getElementById('totalItems').textContent = items.length;
+            document.getElementById('spaceUsed').textContent = formatBytes(totalSize);
+            document.getElementById('lastUpdate').textContent = new Date().toLocaleTimeString('es-ES');
+
+            log(`📊 Total de items: ${items.length}`, 'info');
+            log(`💾 Espacio utilizado: ${formatBytes(totalSize)}`, 'info');
+
+            // Mostrar contenido
+            const container = document.getElementById('dataContainer');
+            container.innerHTML = '';
+
+            items.forEach((item, index) => {
+                let data = item.value;
+                let isParseable = false;
+                
+                try {
+                    const parsed = JSON.parse(item.value);
+                    data = JSON.stringify(parsed, null, 2);
+                    isParseable = true;
+                } catch(e) {
+                    // No es JSON
+                }
+
+                const itemDiv = document.createElement('div');
+                itemDiv.className = 'bg-white rounded-lg shadow-lg p-6 border-l-4 border-blue-500';
+                
+                const summary = `
+                    <div class="flex justify-between items-center cursor-pointer" onclick="toggleItem(${index})">
+                        <div>
+                            <h3 class="text-lg font-bold text-gray-800">${item.key}</h3>
+                            <p class="text-sm text-gray-600">Tamaño: ${formatBytes(item.size)} | Caracteres: ${item.value.length}</p>
+                        </div>
+                        <span id="arrow${index}" class="text-2xl">▼</span>
+                    </div>
+                `;
+
+                const content = `
+                    <div id="content${index}" class="mt-4 bg-gray-50 p-4 rounded-lg font-mono text-sm overflow-x-auto">
+                        <pre>${escapeHtml(data)}</pre>
+                    </div>
+                `;
+
+                itemDiv.innerHTML = summary + content;
+                container.appendChild(itemDiv);
+
+                // Log del item
+                if (isParseable) {
+                    try {
+                        const parsed = JSON.parse(item.value);
+                        if (Array.isArray(parsed)) {
+                            log(`  📋 ${item.key}: Array con ${parsed.length} elementos`, 'info');
+                        } else if (typeof parsed === 'object') {
+                            log(`  📋 ${item.key}: Object con ${Object.keys(parsed).length} propiedades`, 'info');
+                        }
+                    } catch(e) {}
+                }
+            });
+
+            if (items.length === 0) {
+                log('⚠️ No hay datos en localStorage', 'warning');
+                container.innerHTML = '<div class="bg-yellow-50 border-l-4 border-yellow-500 p-6 rounded-lg"><p class="text-yellow-900">localStorage está vacío. Haga login primero.</p></div>';
+            }
+        }
+
+        function toggleItem(index) {
+            const content = document.getElementById(`content${index}`);
+            const arrow = document.getElementById(`arrow${index}`);
+            
+            if (content.classList.contains('hidden')) {
+                content.classList.remove('hidden');
+                arrow.textContent = '▼';
+            } else {
+                content.classList.add('hidden');
+                arrow.textContent = '▶';
+            }
+        }
+
+        function expandAll() {
+            const count = Object.keys(localStorage).length;
+            for (let i = 0; i < count; i++) {
+                const content = document.getElementById(`content${i}`);
+                if (content) {
+                    content.classList.remove('hidden');
+                    document.getElementById(`arrow${i}`).textContent = '▼';
+                }
+            }
+            log('📂 Todo expandido', 'success');
+        }
+
+        function collapseAll() {
+            const count = Object.keys(localStorage).length;
+            for (let i = 0; i < count; i++) {
+                const content = document.getElementById(`content${i}`);
+                if (content) {
+                    content.classList.add('hidden');
+                    document.getElementById(`arrow${i}`).textContent = '▶';
+                }
+            }
+            log('📁 Todo contraído', 'success');
+        }
+
+        function exportToJSON() {
+            const data = {};
+            for (let key of Object.keys(localStorage)) {
+                try {
+                    data[key] = JSON.parse(localStorage.getItem(key));
+                } catch(e) {
+                    data[key] = localStorage.getItem(key);
+                }
+            }
+
+            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = `localStorage_${new Date().toISOString().split('T')[0]}.json`;
+            link.click();
+            
+            log('💾 Datos exportados a JSON', 'success');
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // Inicializar al cargar
+        window.addEventListener('load', function() {
+            log('🔍 Iniciando diagnóstico de localStorage...', 'info');
+            refreshData();
+            
+            // Actualizar cada 5 segundos
+            setInterval(refreshData, 5000);
+        });
+
+        // Monitorear cambios en localStorage
+        window.addEventListener('storage', function(e) {
+            log(`📝 Cambio detectado en localStorage: ${e.key}`, 'warning');
+            refreshData();
+        });
+    </script>
+
+    <style>
+        .hidden {
+            display: none !important;
+        }
+    </style>
+</body>
+</html>

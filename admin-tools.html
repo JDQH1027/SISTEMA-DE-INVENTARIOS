@@ -1,0 +1,184 @@
+<!-- admin-tools.html - Herramientas de administración -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Herramientas de Administración - Sistema de Inventario</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50">
+    <div class="min-h-screen py-12 px-4">
+        <div class="max-w-4xl mx-auto">
+            <!-- Header -->
+            <div class="bg-gradient-to-r from-red-600 to-red-800 text-white rounded-lg shadow-lg p-8 mb-8">
+                <h1 class="text-3xl font-bold mb-2">🔧 Herramientas de Administración</h1>
+                <p class="text-red-100">Solo para desarrolladores y administradores de sistema</p>
+            </div>
+
+            <!-- Warning -->
+            <div class="bg-yellow-50 border-l-4 border-yellow-500 p-6 rounded-lg mb-6">
+                <h3 class="text-lg font-bold text-yellow-900 mb-2">⚠️ Advertencia</h3>
+                <p class="text-yellow-900">Las acciones en esta página pueden afectar permanentemente los datos. Úselas con cuidado.</p>
+            </div>
+
+            <!-- Tools Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                
+                <!-- Load Sample Data -->
+                <div class="bg-white rounded-lg shadow-lg p-6 border-t-4 border-blue-500">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-4">📦 Cargar Datos de Ejemplo</h2>
+                    <p class="text-gray-600 mb-4">Carga un conjunto predefinido de productos, categorías y movimientos para pruebas.</p>
+                    <button onclick="loadSampleData()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg transition">
+                        Cargar Datos de Ejemplo
+                    </button>
+                    <p class="text-xs text-gray-500 mt-2">Incluye 12 productos de ejemplo con movimientos</p>
+                </div>
+
+                <!-- Export Data -->
+                <div class="bg-white rounded-lg shadow-lg p-6 border-t-4 border-green-500">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-4">💾 Exportar Datos</h2>
+                    <p class="text-gray-600 mb-4">Descarga una copia de seguridad de todos los datos en formato JSON.</p>
+                    <button onclick="exportAllData()" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-4 rounded-lg transition">
+                        Descargar Backup
+                    </button>
+                    <p class="text-xs text-gray-500 mt-2">Archivo JSON con todos los datos del sistema</p>
+                </div>
+
+                <!-- Clear Data -->
+                <div class="bg-white rounded-lg shadow-lg p-6 border-t-4 border-red-500">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-4">🗑️ Limpiar Todos los Datos</h2>
+                    <p class="text-gray-600 mb-4">Elimina todos los productos, categorías, movimientos y usuarios creados.</p>
+                    <button onclick="clearAllData()" class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-4 rounded-lg transition">
+                        Eliminar Todo
+                    </button>
+                    <p class="text-xs text-gray-500 mt-2">Esta acción no se puede deshacer</p>
+                </div>
+
+                <!-- Import Data -->
+                <div class="bg-white rounded-lg shadow-lg p-6 border-t-4 border-purple-500">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-4">📥 Importar Datos</h2>
+                    <p class="text-gray-600 mb-4">Restaura datos desde un archivo JSON de backup.</p>
+                    <label class="block">
+                        <input 
+                            type="file" 
+                            accept=".json" 
+                            onchange="importDataFromFile(this.files[0])"
+                            class="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-4 rounded-lg transition cursor-pointer file:cursor-pointer"
+                        />
+                    </label>
+                    <p class="text-xs text-gray-500 mt-2">Seleccione un archivo JSON válido</p>
+                </div>
+            </div>
+
+            <!-- System Info -->
+            <div class="bg-white rounded-lg shadow-lg p-6 mb-6">
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">ℹ️ Información del Sistema</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <p class="text-sm text-gray-600">Navegador</p>
+                        <p class="text-lg font-bold text-gray-800" id="browserInfo">Detectando...</p>
+                    </div>
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <p class="text-sm text-gray-600">localStorage Disponible</p>
+                        <p class="text-lg font-bold text-gray-800" id="storageInfo">Verificando...</p>
+                    </div>
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <p class="text-sm text-gray-600">Productos Registrados</p>
+                        <p class="text-lg font-bold text-gray-800" id="productCount">0</p>
+                    </div>
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <p class="text-sm text-gray-600">Movimientos Registrados</p>
+                        <p class="text-lg font-bold text-gray-800" id="movementCount">0</p>
+                    </div>
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <p class="text-sm text-gray-600">Espacio Usado (aprox)</p>
+                        <p class="text-lg font-bold text-gray-800" id="storageUsed">0 KB</p>
+                    </div>
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <p class="text-sm text-gray-600">Usuarios del Sistema</p>
+                        <p class="text-lg font-bold text-gray-800" id="userCount">0</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Data Summary -->
+            <div class="bg-white rounded-lg shadow-lg p-6 mb-6">
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">📊 Resumen de Datos</h2>
+                <div id="dataSummary" class="text-gray-700 space-y-2">
+                    <p>Cargando información...</p>
+                </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="bg-white rounded-lg shadow-lg p-6">
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">⚡ Acciones Rápidas</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <a href="index.html" class="block bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-4 rounded-lg text-center transition">
+                        🚪 Ir a Login
+                    </a>
+                    <a href="dashboard.html" class="block bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-4 rounded-lg text-center transition">
+                        📊 Ir a Dashboard
+                    </a>
+                    <a href="INICIO.html" class="block bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg text-center transition">
+                        📖 Instrucciones
+                    </a>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="mt-8 text-center text-gray-600 text-sm">
+                <p>Sistema de Gestión de Inventario v1.0.0</p>
+                <p>Listo para producción ✅</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="assets/js/sample-data.js"></script>
+    <script>
+        // Actualizar información del sistema
+        document.addEventListener('DOMContentLoaded', function() {
+            // Browser info
+            document.getElementById('browserInfo').textContent = navigator.userAgent.split('(')[1].split(')')[0];
+            
+            // Storage info
+            document.getElementById('storageInfo').textContent = typeof(Storage) !== 'undefined' ? '✓ Habilitado' : '✗ Deshabilitado';
+            
+            // Data counts
+            const products = JSON.parse(localStorage.getItem('products') || '[]');
+            const movements = JSON.parse(localStorage.getItem('movements') || '[]');
+            const users = JSON.parse(localStorage.getItem('users') || '[]');
+            
+            document.getElementById('productCount').textContent = products.length;
+            document.getElementById('movementCount').textContent = movements.length;
+            document.getElementById('userCount').textContent = users.length;
+            
+            // Storage used
+            let storageUsed = 0;
+            for (let key in localStorage) {
+                if (localStorage.hasOwnProperty(key)) {
+                    storageUsed += localStorage[key].length + key.length;
+                }
+            }
+            document.getElementById('storageUsed').textContent = (storageUsed / 1024).toFixed(2) + ' KB';
+            
+            // Data summary
+            let summary = '<ul class="list-disc pl-5 space-y-1">';
+            summary += `<li><strong>${products.length}</strong> productos en el catálogo</li>`;
+            summary += `<li><strong>${movements.length}</strong> movimientos registrados</li>`;
+            summary += `<li><strong>${users.length}</strong> usuarios configurados</li>`;
+            
+            const totalValue = products.reduce((sum, p) => sum + (p.quantity * p.price), 0);
+            summary += `<li>Valor total del inventario: <strong>$${totalValue.toFixed(2)}</strong></li>`;
+            
+            const totalItems = products.reduce((sum, p) => sum + p.quantity, 0);
+            summary += `<li>Total de artículos: <strong>${totalItems}</strong></li>`;
+            
+            summary += '</ul>';
+            document.getElementById('dataSummary').innerHTML = summary;
+        });
+    </script>
+</body>
+</html>

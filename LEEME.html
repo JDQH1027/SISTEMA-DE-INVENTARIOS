@@ -1,0 +1,275 @@
+<!-- LEEME.html - Punto de entrada principal -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LEEME - Sistema de Gestión de Inventario</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-br from-slate-50 to-slate-100">
+    <div class="min-h-screen py-8 px-4">
+        <div class="max-w-4xl mx-auto">
+            
+            <!-- Welcome Card -->
+            <div class="bg-gradient-to-r from-indigo-600 via-indigo-700 to-indigo-800 text-white rounded-xl shadow-2xl p-12 mb-8">
+                <h1 class="text-5xl font-black mb-4">🎉 ¡Bienvenido!</h1>
+                <p class="text-xl text-indigo-100 mb-6">
+                    Tu aplicación web de gestión de inventario está lista para usar
+                </p>
+                <div class="bg-white bg-opacity-10 border-2 border-white border-opacity-30 rounded-lg p-4">
+                    <p class="text-sm text-indigo-100">✅ <strong>Estado:</strong> Completamente funcional y lista para producción</p>
+                </div>
+            </div>
+
+            <!-- Quick Start -->
+            <div class="bg-white rounded-lg shadow-lg p-8 mb-6">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">🚀 Comienza Aquí</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Option 1 -->
+                    <div class="border-2 border-indigo-200 rounded-lg p-6 hover:shadow-lg transition">
+                        <div class="text-4xl mb-4">⚡</div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-3">Opción 1: Rápido</h3>
+                        <p class="text-gray-600 mb-4">Directamente a la aplicación</p>
+                        <a href="index.html" class="inline-block bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-lg transition">
+                            Ir a Login →
+                        </a>
+                    </div>
+
+                    <!-- Option 2 -->
+                    <div class="border-2 border-green-200 rounded-lg p-6 hover:shadow-lg transition">
+                        <div class="text-4xl mb-4">📖</div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-3">Opción 2: Guiado</h3>
+                        <p class="text-gray-600 mb-4">Ver instrucciones primero</p>
+                        <a href="INICIO.html" class="inline-block bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg transition">
+                            Ver Instrucciones →
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Key Files -->
+            <div class="bg-white rounded-lg shadow-lg p-8 mb-6">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6">📁 Archivos Principales</h2>
+                
+                <div class="space-y-4">
+                    <div class="flex items-start gap-4 pb-4 border-b">
+                        <div class="text-2xl">🏠</div>
+                        <div class="flex-1">
+                            <h4 class="font-bold text-gray-800">home.html</h4>
+                            <p class="text-sm text-gray-600">Página de inicio con presentación</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start gap-4 pb-4 border-b">
+                        <div class="text-2xl">🔐</div>
+                        <div class="flex-1">
+                            <h4 class="font-bold text-gray-800">index.html</h4>
+                            <p class="text-sm text-gray-600">Página de login al sistema</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start gap-4 pb-4 border-b">
+                        <div class="text-2xl">📊</div>
+                        <div class="flex-1">
+                            <h4 class="font-bold text-gray-800">dashboard.html</h4>
+                            <p class="text-sm text-gray-600">Panel principal de la aplicación</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start gap-4 pb-4 border-b">
+                        <div class="text-2xl">📖</div>
+                        <div class="flex-1">
+                            <h4 class="font-bold text-gray-800">INICIO.html</h4>
+                            <p class="text-sm text-gray-600">Guía completa de instrucciones</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start gap-4 pb-4 border-b">
+                        <div class="text-2xl">⚙️</div>
+                        <div class="flex-1">
+                            <h4 class="font-bold text-gray-800">admin-tools.html</h4>
+                            <p class="text-sm text-gray-600">Herramientas administrativas (backup, datos ejemplo, etc.)</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start gap-4 pb-4 border-b">
+                        <div class="text-2xl">⚡</div>
+                        <div class="flex-1">
+                            <h4 class="font-bold text-gray-800">quick-reference.html</h4>
+                            <p class="text-sm text-gray-600">Referencia rápida imprimible</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start gap-4">
+                        <div class="text-2xl">📚</div>
+                        <div class="flex-1">
+                            <h4 class="font-bold text-gray-800">README.md • SETUP.md</h4>
+                            <p class="text-sm text-gray-600">Documentación completa del proyecto</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Credentials -->
+            <div class="bg-blue-50 border-l-4 border-blue-500 rounded-lg p-8 mb-6">
+                <h2 class="text-2xl font-bold text-blue-900 mb-4">🔐 Credenciales de Acceso</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-white rounded p-4">
+                        <h3 class="font-bold text-blue-900 mb-3">Administrador</h3>
+                        <div class="space-y-2 text-sm font-mono bg-gray-50 p-3 rounded">
+                            <p><strong>Usuario:</strong> admin</p>
+                            <p><strong>Contraseña:</strong> admin123</p>
+                        </div>
+                        <p class="text-xs text-gray-600 mt-2">Acceso a todas las funciones</p>
+                    </div>
+
+                    <div class="bg-white rounded p-4">
+                        <h3 class="font-bold text-blue-900 mb-3">Empleado</h3>
+                        <div class="space-y-2 text-sm font-mono bg-gray-50 p-3 rounded">
+                            <p><strong>Usuario:</strong> employee</p>
+                            <p><strong>Contraseña:</strong> emp123</p>
+                        </div>
+                        <p class="text-xs text-gray-600 mt-2">Acceso limitado a operaciones</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Features Complete -->
+            <div class="bg-white rounded-lg shadow-lg p-8 mb-6">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6">✨ Funcionalidades Implementadas</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <h3 class="font-bold text-indigo-600 mb-3">✅ Completado</h3>
+                        <ul class="space-y-2 text-sm">
+                            <li>✓ CRUD completo de productos</li>
+                            <li>✓ Gestión de categorías</li>
+                            <li>✓ Control automático de stock</li>
+                            <li>✓ Historial de movimientos</li>
+                            <li>✓ Sistema de roles (Admin/Empleado)</li>
+                            <li>✓ Estadísticas avanzadas</li>
+                            <li>✓ Persistencia en localStorage</li>
+                            <li>✓ Interfaz responsiva</li>
+                            <li>✓ Alertas de bajo stock</li>
+                            <li>✓ Búsqueda y filtros</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h3 class="font-bold text-green-600 mb-3">🎯 Funcionalidades Admin</h3>
+                        <ul class="space-y-2 text-sm">
+                            <li>✓ Crear/editar/eliminar productos</li>
+                            <li>✓ Definir categorías</li>
+                            <li>✓ Ver todo el inventario</li>
+                            <li>✓ Historial completo</li>
+                            <li>✓ Panel de estadísticas</li>
+                            <li>✓ Gestión de usuarios</li>
+                            <li>✓ Exportar/importar datos</li>
+                            <li>✓ Datos de ejemplo</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+                <a href="home.html" class="bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-lg shadow-lg p-6 hover:shadow-xl transition text-center">
+                    <div class="text-3xl mb-2">🏠</div>
+                    <p class="font-bold">Inicio</p>
+                </a>
+
+                <a href="index.html" class="bg-gradient-to-br from-indigo-500 to-indigo-600 text-white rounded-lg shadow-lg p-6 hover:shadow-xl transition text-center">
+                    <div class="text-3xl mb-2">🚀</div>
+                    <p class="font-bold">Aplicación</p>
+                </a>
+
+                <a href="admin-tools.html" class="bg-gradient-to-br from-purple-500 to-purple-600 text-white rounded-lg shadow-lg p-6 hover:shadow-xl transition text-center">
+                    <div class="text-3xl mb-2">⚙️</div>
+                    <p class="font-bold">Admin Tools</p>
+                </a>
+
+                <a href="quick-reference.html" class="bg-gradient-to-br from-green-500 to-green-600 text-white rounded-lg shadow-lg p-6 hover:shadow-xl transition text-center">
+                    <div class="text-3xl mb-2">⚡</div>
+                    <p class="font-bold">Referencia</p>
+                </a>
+            </div>
+
+            <!-- Important Info -->
+            <div class="bg-yellow-50 border-l-4 border-yellow-500 rounded-lg p-8 mb-6">
+                <h2 class="text-2xl font-bold text-yellow-900 mb-4">⚠️ Información Importante</h2>
+                
+                <ul class="space-y-3 text-yellow-900">
+                    <li>✓ La aplicación funciona <strong>sin servidor</strong> - todo está en localStorage</li>
+                    <li>✓ Los datos <strong>persisten</strong> al cerrar o actualizar el navegador</li>
+                    <li>✓ <strong>No requiere</strong> conexión a internet (excepto para cargar Tailwind CSS)</li>
+                    <li>✓ Compatible con <strong>Chrome, Firefox, Edge, Safari</strong></li>
+                    <li>📁 Los datos se guardan en localStorage del navegador</li>
+                    <li>🔒 Hacer backup regularmente usando admin-tools.html</li>
+                    <li>⚠️ Limpiar datos del navegador eliminará todo permanentemente</li>
+                </ul>
+            </div>
+
+            <!-- Next Steps -->
+            <div class="bg-gradient-to-r from-green-50 to-emerald-50 border-l-4 border-green-500 rounded-lg p-8 mb-6">
+                <h2 class="text-2xl font-bold text-green-900 mb-4">📋 Próximos Pasos</h2>
+                
+                <ol class="space-y-3 text-green-900 list-decimal list-inside">
+                    <li>Abra <strong>index.html</strong> en su navegador</li>
+                    <li>Inicie sesión con <strong>admin / admin123</strong></li>
+                    <li>Cree categorías en "Gestión de Categorías"</li>
+                    <li>Agregue productos en "Gestión de Productos"</li>
+                    <li>Registre movimientos o cambie a empleado para hacerlo</li>
+                    <li>Explore las estadísticas y reportes</li>
+                </ol>
+            </div>
+
+            <!-- Tech Stack -->
+            <div class="bg-gray-100 rounded-lg p-8 mb-6">
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">🛠️ Stack Tecnológico</h2>
+                
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+                    <div class="bg-white rounded p-4 shadow">
+                        <p class="text-2xl mb-2">📄</p>
+                        <p class="font-semibold text-gray-800">HTML5</p>
+                        <p class="text-xs text-gray-600">Semántica</p>
+                    </div>
+                    <div class="bg-white rounded p-4 shadow">
+                        <p class="text-2xl mb-2">🎨</p>
+                        <p class="font-semibold text-gray-800">Tailwind CSS</p>
+                        <p class="text-xs text-gray-600">Responsive</p>
+                    </div>
+                    <div class="bg-white rounded p-4 shadow">
+                        <p class="text-2xl mb-2">⚙️</p>
+                        <p class="font-semibold text-gray-800">JavaScript</p>
+                        <p class="text-xs text-gray-600">Vanilla</p>
+                    </div>
+                    <div class="bg-white rounded p-4 shadow">
+                        <p class="text-2xl mb-2">💾</p>
+                        <p class="font-semibold text-gray-800">localStorage</p>
+                        <p class="text-xs text-gray-600">Persistente</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Final CTA -->
+            <div class="text-center bg-gradient-to-r from-indigo-600 to-indigo-700 text-white rounded-xl shadow-2xl p-12">
+                <h2 class="text-3xl font-bold mb-4">¿Listo para comenzar?</h2>
+                <a href="index.html" class="inline-block bg-white hover:bg-gray-100 text-indigo-600 font-bold py-4 px-8 rounded-lg transition shadow-lg">
+                    Acceder a la Aplicación →
+                </a>
+            </div>
+
+            <!-- Footer -->
+            <div class="text-center mt-10 text-gray-600">
+                <p><strong>Sistema de Gestión de Inventario</strong> v1.0.0</p>
+                <p class="text-sm">✅ Listo para producción</p>
+                <p class="text-xs mt-2">Desarrollado con HTML5, CSS Tailwind, JavaScript Vanilla y localStorage</p>
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>

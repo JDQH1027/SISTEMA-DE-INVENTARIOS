@@ -1,0 +1,225 @@
+<!-- home.html - Página de inicio principal -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Gestión de Inventario - Inicio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-br from-indigo-50 via-white to-blue-50">
+    <div class="min-h-screen">
+        <!-- Navigation -->
+        <nav class="bg-white shadow-md">
+            <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
+                <div class="text-2xl font-bold text-indigo-600">📦 Inventario</div>
+                <a href="INICIO.html" class="text-indigo-600 hover:text-indigo-800 font-semibold">Instrucciones</a>
+            </div>
+        </nav>
+
+        <!-- Hero Section -->
+        <section class="max-w-6xl mx-auto px-4 py-16">
+            <div class="text-center mb-16">
+                <h1 class="text-5xl font-bold text-gray-800 mb-4">
+                    Sistema de Gestión de Inventario
+                </h1>
+                <p class="text-xl text-gray-600 mb-8">
+                    Solución web completa para controlar tu inventario empresarial
+                </p>
+                <div class="flex gap-4 justify-center flex-wrap">
+                    <a href="index.html" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-8 rounded-lg transition shadow-lg">
+                        🚀 Acceder a la Aplicación
+                    </a>
+                    <a href="INICIO.html" class="bg-white border-2 border-indigo-600 text-indigo-600 hover:bg-indigo-50 font-bold py-3 px-8 rounded-lg transition">
+                        📖 Ver Instrucciones
+                    </a>
+                </div>
+            </div>
+
+            <!-- Features Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+                
+                <!-- Feature 1 -->
+                <div class="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition">
+                    <div class="text-4xl mb-4">📦</div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">CRUD Completo</h3>
+                    <p class="text-gray-600">Crear, editar, ver y eliminar productos con facilidad</p>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition">
+                    <div class="text-4xl mb-4">📊</div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Historial de Movimientos</h3>
+                    <p class="text-gray-600">Registro completo de entradas, salidas y todas las operaciones</p>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition">
+                    <div class="text-4xl mb-4">📈</div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Estadísticas Avanzadas</h3>
+                    <p class="text-gray-600">Análisis detallado del inventario y alertas de bajo stock</p>
+                </div>
+
+                <!-- Feature 4 -->
+                <div class="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition">
+                    <div class="text-4xl mb-4">👥</div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Sistema de Roles</h3>
+                    <p class="text-gray-600">Administrador y Empleado con permisos diferenciados</p>
+                </div>
+
+                <!-- Feature 5 -->
+                <div class="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition">
+                    <div class="text-4xl mb-4">💾</div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Persistencia Total</h3>
+                    <p class="text-gray-600">Todos los datos se guardan en localStorage automáticamente</p>
+                </div>
+
+                <!-- Feature 6 -->
+                <div class="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition">
+                    <div class="text-4xl mb-4">🎨</div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Interfaz Moderna</h3>
+                    <p class="text-gray-600">Diseño responsivo y amigable con Tailwind CSS</p>
+                </div>
+            </div>
+
+            <!-- Quick Start -->
+            <section class="bg-gradient-to-r from-indigo-600 to-blue-600 text-white rounded-lg shadow-lg p-12 mb-16">
+                <h2 class="text-3xl font-bold mb-8">🚀 Inicio Rápido en 3 Pasos</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div>
+                        <div class="bg-white bg-opacity-20 rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold mb-4">1</div>
+                        <h3 class="text-xl font-bold mb-2">Acceder</h3>
+                        <p>Haz clic en "Acceder a la Aplicación" e ingresa las credenciales de prueba</p>
+                    </div>
+                    <div>
+                        <div class="bg-white bg-opacity-20 rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold mb-4">2</div>
+                        <h3 class="text-xl font-bold mb-2">Explorar</h3>
+                        <p>Navega por las diferentes secciones según tu rol (Admin o Empleado)</p>
+                    </div>
+                    <div>
+                        <div class="bg-white bg-opacity-20 rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold mb-4">3</div>
+                        <h3 class="text-xl font-bold mb-2">Comenzar</h3>
+                        <p>Crea productos, registra movimientos y genera reportes</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Credentials -->
+            <section class="mb-16">
+                <h2 class="text-3xl font-bold text-gray-800 mb-8 text-center">🔐 Credenciales de Prueba</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- Admin Card -->
+                    <div class="bg-gradient-to-br from-blue-600 to-blue-800 text-white rounded-lg shadow-lg p-8">
+                        <h3 class="text-2xl font-bold mb-4">👨‍💼 Administrador</h3>
+                        <div class="bg-white bg-opacity-10 p-4 rounded-lg mb-4">
+                            <p class="text-sm opacity-75 mb-1">Usuario:</p>
+                            <p class="font-mono text-lg">admin</p>
+                        </div>
+                        <div class="bg-white bg-opacity-10 p-4 rounded-lg">
+                            <p class="text-sm opacity-75 mb-1">Contraseña:</p>
+                            <p class="font-mono text-lg">admin123</p>
+                        </div>
+                        <ul class="mt-6 space-y-2 text-sm">
+                            <li>✓ Crear y editar productos</li>
+                            <li>✓ Gestionar categorías</li>
+                            <li>✓ Ver estadísticas completas</li>
+                            <li>✓ Gestionar usuarios</li>
+                        </ul>
+                    </div>
+
+                    <!-- Employee Card -->
+                    <div class="bg-gradient-to-br from-green-600 to-green-800 text-white rounded-lg shadow-lg p-8">
+                        <h3 class="text-2xl font-bold mb-4">👨‍💻 Empleado</h3>
+                        <div class="bg-white bg-opacity-10 p-4 rounded-lg mb-4">
+                            <p class="text-sm opacity-75 mb-1">Usuario:</p>
+                            <p class="font-mono text-lg">employee</p>
+                        </div>
+                        <div class="bg-white bg-opacity-10 p-4 rounded-lg">
+                            <p class="text-sm opacity-75 mb-1">Contraseña:</p>
+                            <p class="font-mono text-lg">emp123</p>
+                        </div>
+                        <ul class="mt-6 space-y-2 text-sm">
+                            <li>✓ Registrar entradas</li>
+                            <li>✓ Registrar salidas</li>
+                            <li>✓ Consultar inventario</li>
+                            <li>✓ Ver movimientos</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tools Section -->
+            <section class="mb-16">
+                <h2 class="text-3xl font-bold text-gray-800 mb-8 text-center">🛠️ Herramientas Disponibles</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <a href="index.html" class="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition text-center">
+                        <div class="text-4xl mb-4">🚪</div>
+                        <h3 class="text-lg font-bold text-gray-800">Login</h3>
+                        <p class="text-gray-600 text-sm">Acceso a la aplicación principal</p>
+                    </a>
+
+                    <a href="admin-tools.html" class="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition text-center">
+                        <div class="text-4xl mb-4">⚙️</div>
+                        <h3 class="text-lg font-bold text-gray-800">Admin Tools</h3>
+                        <p class="text-gray-600 text-sm">Herramientas administrativas avanzadas</p>
+                    </a>
+
+                    <a href="INICIO.html" class="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition text-center">
+                        <div class="text-4xl mb-4">📚</div>
+                        <h3 class="text-lg font-bold text-gray-800">Instrucciones</h3>
+                        <p class="text-gray-600 text-sm">Guía completa de uso del sistema</p>
+                    </a>
+                </div>
+            </section>
+
+            <!-- Technology Stack -->
+            <section class="bg-gray-50 rounded-lg shadow-lg p-12 mb-16">
+                <h2 class="text-3xl font-bold text-gray-800 mb-8 text-center">🛠️ Stack Tecnológico</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-6 text-center">
+                    <div>
+                        <div class="text-4xl mb-2">📄</div>
+                        <h3 class="font-bold text-gray-800">HTML5</h3>
+                        <p class="text-sm text-gray-600">Estructura semántica</p>
+                    </div>
+                    <div>
+                        <div class="text-4xl mb-2">🎨</div>
+                        <h3 class="font-bold text-gray-800">Tailwind CSS</h3>
+                        <p class="text-sm text-gray-600">Diseño responsivo</p>
+                    </div>
+                    <div>
+                        <div class="text-4xl mb-2">⚙️</div>
+                        <h3 class="font-bold text-gray-800">JavaScript</h3>
+                        <p class="text-sm text-gray-600">Lógica vanilla</p>
+                    </div>
+                    <div>
+                        <div class="text-4xl mb-2">💾</div>
+                        <h3 class="font-bold text-gray-800">localStorage</h3>
+                        <p class="text-sm text-gray-600">Persistencia</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CTA Section -->
+            <section class="text-center">
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">¿Listo para comenzar?</h2>
+                <a href="index.html" class="inline-block bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-4 px-10 rounded-lg transition shadow-lg text-lg">
+                    Abrir Aplicación →
+                </a>
+            </section>
+        </section>
+
+        <!-- Footer -->
+        <footer class="bg-gray-800 text-white mt-20 py-10">
+            <div class="max-w-6xl mx-auto px-4 text-center">
+                <p class="mb-2">Sistema de Gestión de Inventario v1.0.0</p>
+                <p class="text-gray-400 text-sm">Listo para producción ✅</p>
+                <p class="text-gray-400 text-sm mt-4">HTML5 • CSS Framework • JavaScript Vanilla • localStorage</p>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>

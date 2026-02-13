@@ -1,0 +1,198 @@
+<!-- INSTRUCCIONES DE USO.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instrucciones - Sistema de Gestión de Inventario</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50">
+    <div class="min-h-screen py-12 px-4">
+        <div class="max-w-4xl mx-auto">
+            <!-- Header -->
+            <div class="bg-gradient-to-r from-indigo-600 to-indigo-800 text-white rounded-lg shadow-lg p-8 mb-8">
+                <h1 class="text-4xl font-bold mb-2">Sistema de Gestión de Inventario</h1>
+                <p class="text-indigo-100 text-lg">Versión 1.0.0 - Completamente Funcional</p>
+            </div>
+
+            <!-- Quick Start -->
+            <div class="bg-white rounded-lg shadow-lg p-8 mb-6">
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">🚀 Inicio Rápido</h2>
+                <ol class="space-y-3 text-gray-700">
+                    <li class="flex items-start">
+                        <span class="bg-indigo-600 text-white rounded-full w-8 h-8 flex items-center justify-center mr-3 flex-shrink-0">1</span>
+                        <span><strong>Abra index.html</strong> en su navegador web (Chrome, Firefox, Edge o Safari)</span>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="bg-indigo-600 text-white rounded-full w-8 h-8 flex items-center justify-center mr-3 flex-shrink-0">2</span>
+                        <span><strong>Ingrese credenciales de prueba:</strong> admin/admin123 (Administrador) o employee/emp123 (Empleado)</span>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="bg-indigo-600 text-white rounded-full w-8 h-8 flex items-center justify-center mr-3 flex-shrink-0">3</span>
+                        <span><strong>Comience a usar</strong> la aplicación - todos los datos se guardan automáticamente</span>
+                    </li>
+                </ol>
+            </div>
+
+            <!-- Credentials -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                <!-- Admin -->
+                <div class="bg-blue-50 border-2 border-blue-200 rounded-lg p-6">
+                    <h3 class="text-xl font-bold text-blue-900 mb-4">👨‍💼 Administrador</h3>
+                    <div class="space-y-2">
+                        <div>
+                            <p class="text-sm text-blue-700">Usuario:</p>
+                            <p class="text-lg font-mono bg-blue-100 p-2 rounded">admin</p>
+                        </div>
+                        <div>
+                            <p class="text-sm text-blue-700">Contraseña:</p>
+                            <p class="text-lg font-mono bg-blue-100 p-2 rounded">admin123</p>
+                        </div>
+                    </div>
+                    <div class="mt-4 p-3 bg-blue-100 rounded-lg text-sm text-blue-900">
+                        ✓ Acceso completo a todas las funcionalidades
+                    </div>
+                </div>
+
+                <!-- Employee -->
+                <div class="bg-green-50 border-2 border-green-200 rounded-lg p-6">
+                    <h3 class="text-xl font-bold text-green-900 mb-4">👨‍💻 Empleado</h3>
+                    <div class="space-y-2">
+                        <div>
+                            <p class="text-sm text-green-700">Usuario:</p>
+                            <p class="text-lg font-mono bg-green-100 p-2 rounded">employee</p>
+                        </div>
+                        <div>
+                            <p class="text-sm text-green-700">Contraseña:</p>
+                            <p class="text-lg font-mono bg-green-100 p-2 rounded">emp123</p>
+                        </div>
+                    </div>
+                    <div class="mt-4 p-3 bg-green-100 rounded-lg text-sm text-green-900">
+                        ✓ Acceso limitado a registro de movimientos
+                    </div>
+                </div>
+            </div>
+
+            <!-- Features -->
+            <div class="bg-white rounded-lg shadow-lg p-8 mb-6">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6">✨ Características Incluidas</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="border-l-4 border-green-500 pl-4">
+                        <h3 class="font-bold text-lg text-gray-800 mb-2">✅ Para Administrador</h3>
+                        <ul class="space-y-1 text-gray-700 text-sm">
+                            <li>✓ Crear, editar y eliminar productos</li>
+                            <li>✓ Gestionar categorías</li>
+                            <li>✓ Visualizar estadísticas completas</li>
+                            <li>✓ Ver historial de movimientos</li>
+                            <li>✓ Gestionar usuarios</li>
+                            <li>✓ Alertas de bajo stock</li>
+                            <li>✓ Reportes de rotación</li>
+                        </ul>
+                    </div>
+
+                    <div class="border-l-4 border-blue-500 pl-4">
+                        <h3 class="font-bold text-lg text-gray-800 mb-2">✅ Para Empleado</h3>
+                        <ul class="space-y-1 text-gray-700 text-sm">
+                            <li>✓ Registrar entradas (compras)</li>
+                            <li>✓ Registrar salidas (ventas, pérdidas)</li>
+                            <li>✓ Consultar inventario disponible</li>
+                            <li>✓ Ver historial de movimientos</li>
+                            <li>✓ Agregar observaciones</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- How to Use -->
+            <div class="bg-white rounded-lg shadow-lg p-8 mb-6">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6">📖 Guía de Uso</h2>
+
+                <div class="space-y-6">
+                    <!-- Admin Section -->
+                    <div>
+                        <h3 class="text-xl font-bold text-indigo-600 mb-3">Para Administrador</h3>
+                        
+                        <div class="space-y-3">
+                            <div class="bg-gray-50 p-4 rounded-lg">
+                                <h4 class="font-bold text-gray-800 mb-2">1. Crear Productos</h4>
+                                <p class="text-gray-700 text-sm">Vaya a "Gestión de Productos" → "Agregar Producto" → Complete los datos (nombre, categoría, precio, cantidad, stock mín/máx)</p>
+                            </div>
+
+                            <div class="bg-gray-50 p-4 rounded-lg">
+                                <h4 class="font-bold text-gray-800 mb-2">2. Gestionar Categorías</h4>
+                                <p class="text-gray-700 text-sm">Vaya a "Categorías" → Agregue nuevas categorías o elimine las existentes</p>
+                            </div>
+
+                            <div class="bg-gray-50 p-4 rounded-lg">
+                                <h4 class="font-bold text-gray-800 mb-2">3. Ver Estadísticas</h4>
+                                <p class="text-gray-700 text-sm">Vaya a "Estadísticas" para ver: valor total del inventario, productos con bajo stock, productos más movidos, alertas del sistema</p>
+                            </div>
+
+                            <div class="bg-gray-50 p-4 rounded-lg">
+                                <h4 class="font-bold text-gray-800 mb-2">4. Gestionar Usuarios</h4>
+                                <p class="text-gray-700 text-sm">Vaya a "Usuarios" → Cree nuevos usuarios, active/desactive o elimine según sea necesario</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Employee Section -->
+                    <div>
+                        <h3 class="text-xl font-bold text-green-600 mb-3">Para Empleado</h3>
+                        
+                        <div class="space-y-3">
+                            <div class="bg-gray-50 p-4 rounded-lg">
+                                <h4 class="font-bold text-gray-800 mb-2">1. Registrar Entrada</h4>
+                                <p class="text-gray-700 text-sm">Vaya a "Registrar Entrada" → Seleccione el producto → Ingrese la cantidad → Agregue observaciones → Guardar</p>
+                            </div>
+
+                            <div class="bg-gray-50 p-4 rounded-lg">
+                                <h4 class="font-bold text-gray-800 mb-2">2. Registrar Salida</h4>
+                                <p class="text-gray-700 text-sm">Vaya a "Registrar Salida" → Seleccione tipo de salida (venta/pérdida/daño) → Ingrese cantidad → Guardar</p>
+                            </div>
+
+                            <div class="bg-gray-50 p-4 rounded-lg">
+                                <h4 class="font-bold text-gray-800 mb-2">3. Ver Inventario</h4>
+                                <p class="text-gray-700 text-sm">Vaya a "Inventario" para ver todos los productos y sus cantidades disponibles</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Technical Info -->
+            <div class="bg-indigo-50 border-l-4 border-indigo-500 p-6 rounded-lg mb-6">
+                <h3 class="text-lg font-bold text-indigo-900 mb-3">🔧 Información Técnica</h3>
+                <ul class="space-y-2 text-indigo-900 text-sm">
+                    <li><strong>Tecnologías:</strong> HTML5, CSS (Tailwind), JavaScript Vanilla, localStorage</li>
+                    <li><strong>Almacenamiento:</strong> Todos los datos se guardan en localStorage del navegador</li>
+                    <li><strong>Compatibilidad:</strong> Chrome, Firefox, Edge, Safari (versiones modernas)</li>
+                    <li><strong>No requiere:</strong> Servidor, base de datos, conexión a internet</li>
+                </ul>
+            </div>
+
+            <!-- Important Notes -->
+            <div class="bg-yellow-50 border-l-4 border-yellow-500 p-6 rounded-lg mb-6">
+                <h3 class="text-lg font-bold text-yellow-900 mb-3">⚠️ Notas Importantes</h3>
+                <ul class="space-y-2 text-yellow-900 text-sm">
+                    <li>✓ Los datos se guardan automáticamente y persisten al cerrar el navegador</li>
+                    <li>✓ Limpiar datos de navegador eliminará toda la información</li>
+                    <li>✓ No requiere conexión a internet para funcionar</li>
+                    <li>✓ Los datos son locales y privados en su navegador</li>
+                    <li>✓ Se recomienda usar en navegadores modernos actualizados</li>
+                </ul>
+            </div>
+
+            <!-- Footer -->
+            <div class="bg-gray-800 text-white rounded-lg p-6 text-center">
+                <p class="text-lg font-bold mb-2">¿Listo para comenzar?</p>
+                <p class="text-gray-300 mb-4">Abra <strong>index.html</strong> en su navegador</p>
+                <a href="index.html" class="inline-block bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-8 rounded-lg">
+                    Ir a la Aplicación
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

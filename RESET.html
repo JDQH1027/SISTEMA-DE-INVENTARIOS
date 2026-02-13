@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RESET - Sistema de Inventario</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-br from-red-50 to-orange-50 flex items-center justify-center min-h-screen p-4">
+    <div class="bg-white rounded-lg shadow-2xl p-8 max-w-md w-full">
+        <div class="text-center mb-6">
+            <div class="text-5xl mb-4">🔄</div>
+            <h1 class="text-2xl font-bold text-gray-800">RESET DEL SISTEMA</h1>
+            <p class="text-gray-600 text-sm mt-2">Limpiar localStorage y reinicializar</p>
+        </div>
+
+        <div id="status" class="bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded mb-6">
+            <p class="text-yellow-900 font-semibold">Presione el botón para limpiar localStorage</p>
+        </div>
+
+        <button onclick="resetSystem()" class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-4 rounded-lg transition duration-300 mb-4">
+            🗑️ Limpiar Todo
+        </button>
+
+        <button onclick="resetAndGo()" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-4 rounded-lg transition duration-300">
+            ✅ Limpiar e Ir a Login
+        </button>
+
+        <div id="output" class="mt-6 bg-gray-100 p-4 rounded-lg text-sm font-mono min-h-[100px] max-h-[200px] overflow-y-auto hidden">
+        </div>
+    </div>
+
+    <script>
+        function log(message) {
+            const output = document.getElementById('output');
+            output.classList.remove('hidden');
+            output.innerHTML += message + '<br>';
+            output.scrollTop = output.scrollHeight;
+            console.log(message);
+        }
+
+        function resetSystem() {
+            log('🔍 Iniciando limpieza...');
+            log('📊 localStorage antes: ' + Object.keys(localStorage).length + ' items');
+            
+            // Listar todas las keys
+            for (let key of Object.keys(localStorage)) {
+                log('  - Eliminando: ' + key);
+            }
+            
+            // Limpiar localStorage
+            localStorage.clear();
+            log('✅ localStorage limpiado');
+            log('📊 localStorage después: ' + Object.keys(localStorage).length + ' items');
+            
+            // Inicializar con usuarios por defecto
+            const defaultUsers = [
+                { id: '1', username: 'admin', password: 'admin123', role: 'admin', active: true },
+                { id: '2', username: 'employee', password: 'emp123', role: 'employee', active: true }
+            ];
+            
+            localStorage.setItem('users', JSON.stringify(defaultUsers));
+            log('👤 Usuarios por defecto inicializados:');
+            log('   - admin / admin123');
+            log('   - employee / emp123');
+            
+            // Inicializar estructura base
+            localStorage.setItem('categories', JSON.stringify([]));
+            localStorage.setItem('products', JSON.stringify([]));
+            localStorage.setItem('movements', JSON.stringify([]));
+            log('📁 Estructura de datos inicializada');
+            
+            log('');
+            log('✨ ¡Sistema reiniciado exitosamente!');
+            log('');
+            log('Datos actuales en localStorage:');
+            for (let key of Object.keys(localStorage)) {
+                const value = localStorage.getItem(key);
+                log(`  ${key}: ${value.length} caracteres`);
+            }
+        }
+
+        function resetAndGo() {
+            resetSystem();
+            setTimeout(() => {
+                log('');
+                log('🚀 Redirigiendo a login en 2 segundos...');
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 2000);
+            }, 500);
+        }
+
+        // Al cargar la página, mostrar estado actual
+        window.addEventListener('load', function() {
+            log('📋 Estado actual de localStorage:');
+            if (Object.keys(localStorage).length === 0) {
+                log('  ⚠️ localStorage está vacío');
+                log('  Presione "Limpiar e Ir a Login" para inicializar');
+            } else {
+                for (let key of Object.keys(localStorage)) {
+                    const value = localStorage.getItem(key);
+                    log(`  ${key}: ${value.substring(0, 50)}...`);
+                }
+            }
+        });
+    </script>
+</body>
+</html>
